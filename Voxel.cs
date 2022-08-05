@@ -8,8 +8,10 @@ public class Voxel : MonoBehaviour
     public float speed = 5;
 
     // Start is called before the first frame update
-    void Start()
+    // void Start()
+    void OnEnable()
     {
+        currentTime = 0;
         // 2. 랜덤한 방향을 찾음
         Vector3 direction = Random.insideUnitSphere;
         // 3. 랜덤한 방향으로 날아가는 속도를 줌
@@ -32,7 +34,12 @@ public class Voxel : MonoBehaviour
         if(currentTime > destoryTime)
         {
             // 3. 복셀을 제거하고 싶음
-            Destroy(gameObject);
+            // Destroy(gameObject);
+
+            // 오브젝트 풀 사용_3. Voxel을 비활성화
+            gameObject.SetActive(false);    
+            // 오브젝트 풀 사용_4. 오브젝트 풀에 다시 넣어줌
+            VoxelMaker.voxelPool.Add(gameObject);
         }
     }
 }
